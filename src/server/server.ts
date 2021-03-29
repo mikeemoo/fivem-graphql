@@ -30,6 +30,10 @@ const typeDefs = gql`
     modelHash: String!
     type: String!
     populationType: String!
+    causeOfDeath: String
+    currentVehicle: Entity
+    lastVehicle: Entity
+    numberPlate: String!
   }
 
   type Vector3 {
@@ -42,6 +46,7 @@ const typeDefs = gql`
     sessions: [Session!]!
     peds: [Entity!]!
     vehicles: [Entity!]!
+    objects: [Entity!]!
   }
 `;
 

@@ -20,8 +20,18 @@ export const maxHealth = ({ entityId }) => GetPedMaxHealth(entityId);
 export const heading = ({ entityId })   => GetEntityHeading(entityId);
 export const health = ({ entityId })    => GetEntityHealth(entityId);
 export const modelHash = ({ entityId }) => GetEntityModel(entityId);
+export const causeOfDeath = ({ entityId }) => GetPedCauseOfDeath(entityId);
 export const populationType = ({ entityId }) => POPULATION_TYPE[GetEntityPopulationType(entityId)];
-export const type = ({ entityId }) => ENTITY_TYPES[GetEntityType(entityId)]
+export const type = ({ entityId }) => ENTITY_TYPES[GetEntityType(entityId)];
+export const numberPlate = ({ entityId }) => GetVehicleNumberPlateText(entityId);
+export const currentVehicle = ({ entityId }) => {
+  const id = GetVehiclePedIsIn(entityId, false);
+  return id ? { entityId: id } : null;
+}
+export const lastVehicle = ({ entityId }) => {
+  const id = GetVehiclePedIsIn(entityId, true);
+  return id ? { entityId: id } : null;
+}
 
 export const rotation = ({ entityId }) =>  {
   const [ x, y, z ] = GetEntityRotation(entityId)
