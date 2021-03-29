@@ -14,6 +14,7 @@ const typeDefs = gql`
     maxHealth: Float!
     endpoint: String!
     ped: Entity!
+    cameraRotation: Vector3!
   }
 
   type Entity {
@@ -27,6 +28,7 @@ const typeDefs = gql`
     coords: Vector3!
     modelHash: String!
     type: String!
+    populationType: String!
   }
 
   type Vector3 {
@@ -38,6 +40,7 @@ const typeDefs = gql`
   type Query {
     sessions: [Session!]!
     peds: [Entity!]!
+    vehicles: [Entity!]!
   }
 `;
 

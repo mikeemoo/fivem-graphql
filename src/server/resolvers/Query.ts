@@ -1,4 +1,5 @@
 export const peds = () => GetAllPeds().map((entityId) => ({ entityId }));
+export const vehicles = () => GetAllVehicles().map((entityId) => ({ entityId }));
 
 export const sessions = () => {
   const numPlayers = GetNumPlayerIndices();
