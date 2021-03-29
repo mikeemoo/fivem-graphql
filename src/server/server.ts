@@ -14,6 +14,7 @@ const typeDefs = gql`
     maxHealth: Float!
     endpoint: String!
     ped: Entity!
+    tokens: [String!]!
     cameraRotation: Vector3!
   }
 

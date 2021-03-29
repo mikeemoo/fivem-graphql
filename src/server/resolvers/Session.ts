@@ -10,6 +10,15 @@ export const cameraRotation = ({ playerId }) => {
   return { x, y, z }
 }
 
+export const tokens = ({ playerId }) => {
+  const numTokens = GetNumPlayerTokens(playerId);
+  let tokens = [];
+  for (let i = 0; i < numTokens; i++) {
+    tokens.push(GetPlayerToken(playerId, i));
+  }
+  return tokens;
+}
+
 export const identifiers = ({ playerId }) => {
   const numIds = GetNumPlayerIdentifiers(playerId);
   let identifiers = [];
