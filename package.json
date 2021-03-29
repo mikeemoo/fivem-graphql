@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "devDependencies": {
-  },
   "dependencies": {
     "apollo-server": "^2.22.1",
     "graphql": "^15.5.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.28.0"
+  },
+  "scripts": {
+    "build-server": "webpack --config src/server/webpack.config.js"
   }
 }
