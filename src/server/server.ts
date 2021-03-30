@@ -71,11 +71,4 @@ server.listen({ port: 8006 }).then(({ url }) => {
 
 const executeQuery = (query, vars) => graphql(schema, query, null, vars)
 
-onNet("gql:callback:server", (uuid, query, vars) => {
-  const source = (global as any).source;
-  executeQuery(query, vars).then(
-    (results) => emitNet("gql:callback:client", source, uuid, results)
-  );
-});
-
 exp("executeQuery", executeQuery);
