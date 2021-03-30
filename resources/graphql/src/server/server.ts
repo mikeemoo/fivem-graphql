@@ -38,10 +38,7 @@ const recreateSchema = () => {
 };
 
 const executeQuery = (query: string, vars: any = {}, callback: (res: any) => {}) =>
-  graphql(currentExecutableSchema, query, null, vars).then((a) => {
-    console.log(a);
-    callback(a);
-  });
+  graphql(currentExecutableSchema, query, null, null, vars).then(callback);
 
 const registerResolver = (namespace: string, type: string, prop: string, fn: Function) => {
   if (!resolverRegister[namespace][type]) resolverRegister[namespace][type] = {};
@@ -73,6 +70,7 @@ register(
     ped: Entity!
     tokens: [String!]!
     cameraRotation: Vector3!
+    player: Player!
   }
 
   type Player {
@@ -106,9 +104,11 @@ register(
 
   type Query {
     sessions: [Session!]!
+    session(sessionId: String!): Session
     peds: [Entity!]!
     vehicles: [Entity!]!
-    objects: [Entity!]!
+    entities: [Entity!]!
+    entity(entityId: Int!): Entity
   }`,
   coreResolvers,
 );

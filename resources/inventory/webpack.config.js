@@ -4,7 +4,7 @@ const nodeExternals = require('webpack-node-externals');
 const getConfig = (environment) => ({
   mode: 'production',
   context: __dirname,
-  entry: `./src/${environment}/${environment}.ts`,
+  entry: `./src/${environment}/${environment}.ts${environment === "ui" ? "x": ""}`,
   output: {
     path: path.resolve(
       __dirname,
@@ -21,7 +21,7 @@ const getConfig = (environment) => ({
       { test: /\.tsx?$/, loader: 'ts-loader', exclude: /node_modules/ }
     ],
   },
-  externals: [
+  externals: environment === "ui" ? [] : [
     nodeExternals(environment === "server" ? {
       modulesDir: path.resolve(__dirname, "node_modules"),
       additionalModuleDirs: [
@@ -33,5 +33,6 @@ const getConfig = (environment) => ({
 
 module.exports = [
   getConfig("server"),
-  getConfig("client")
+  getConfig("client"),
+  getConfig("ui")
 ];

@@ -1,5 +1,4 @@
 import * as resolvers from './resolvers';
-
 const exp = global.exports;
 
 const schema = `
@@ -21,19 +20,43 @@ const schema = `
 `;
 
 const registerWithGraphQL = () => exp.graphql.register(GetCurrentResourceName(), schema, resolvers);
-
-// if graphql reboots we'll need to re-register our interfaces
 on('onResourceStart', (name: string) => name === 'graphql' && registerWithGraphQL());
 registerWithGraphQL();
 
-// exp.graphql.executeQuery(
-//   `
-//     query {
-//       items {
-//         id
-//       }
-//     }
-//   `,
-//   console.log
-// )
+const callbacks = {
+   loadInventory: (sessionId: string, resolve: Function) => {
+     
+      exp.graphql.executeQuery(
+        `query GetUserInventory($sessionId: String!) {
+            session (sessionId: $sessionId) {
+              player {
+                inventory {
+                  id
+                  size
+                  items {
+                    id
+                    name
+                  }
+                }
+              }
+            }
+          }
+        `,
+        {
+          sessionId
+        },
+        ({ data: { session: { player: { inventory }}}}) => {
+          console.log("resolved", inventory);
+          resolve(inventory)
+        }
+      )
+   }
+}
+
+onNet("inventory:callback:request", (id: string, eventName: string, ...params: any[]) => {
+  const sessionId = String(source);
+  callbacks[eventName](sessionId, (...args: any[]) => 
+    emitNet("inventory:callback:response", sessionId, id, ...args), ...params);
+})
+
 
