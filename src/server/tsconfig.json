@@ -1,10 +1,13 @@
 {
-  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": ".",
-    "types": ["@citizenfx/server", "@types/node"],
+    "noImplicitAny": false,
+    "module": "commonjs",
+    "target": "es2018",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "types": ["@citizenfx/server", "@citizenfx/client", "@types/node"],
     "moduleResolution": "node"
-  },
+  },    
   "include": ["./**/*"],
   "exclude": ["**/node_modules", "**/__tests__/*"]
 }

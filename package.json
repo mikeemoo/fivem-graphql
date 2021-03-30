@@ -5,12 +5,13 @@
   "license": "MIT",
   "dependencies": {
     "apollo-server": "^2.22.1",
-    "graphql": "^15.5.0"
+    "graphql": "^15.5.0",
+    "webpack-node-externals": "^2.5.2"
   },
   "devDependencies": {
     "webpack": "^5.28.0"
   },
   "scripts": {
-    "build-server": "webpack --config src/server/webpack.config.js"
+    "build-server": "webpack --config webpack.config.js"
   }
 }
