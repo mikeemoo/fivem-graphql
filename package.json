@@ -12,6 +12,6 @@
     "webpack": "^5.28.0"
   },
   "scripts": {
-    "build-server": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js"
   }
 }

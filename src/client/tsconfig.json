@@ -5,9 +5,8 @@
     "target": "es2018",
     "allowJs": true,
     "esModuleInterop": true,
-    "types": ["@citizenfx/server", "@types/node"],
-    "moduleResolution": "node"
-  },    
+    "types": ["@citizenfx/client", "@types/node"],
+  },
   "include": ["./**/*"],
   "exclude": ["**/node_modules", "**/__tests__/*"]
 }

@@ -1,7 +1,10 @@
-import { ApolloServer, gql } from 'apollo-server';
+import { ApolloServer, gql, makeExecutableSchema } from 'apollo-server';
+import { graphql, execute } from "graphql";
 import * as Query from './resolvers/Query';
 import * as Session from './resolvers/Session';
 import * as Entity from './resolvers/Entity';
+
+const exp = (global as any).exports
 
 const typeDefs = gql`
   type Session {
@@ -56,8 +59,23 @@ const resolvers = {
   Query,
 };
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const schema = makeExecutableSchema({typeDefs, resolvers});
+
+const server = new ApolloServer({
+  schema
+});
 
 server.listen({ port: 8006 }).then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
+  console.log(`Server ready at ${url}`);
 });
+
+const executeQuery = (query, vars) => graphql(schema, query, null, vars)
+
+onNet("gql:callback:server", (uuid, query, vars) => {
+  const source = (global as any).source;
+  executeQuery(query, vars).then(
+    (results) => emitNet("gql:callback:client", source, uuid, results)
+  );
+});
+
+exp("executeQuery", executeQuery);
