@@ -1,5 +1,7 @@
 const { spawn } = require("child_process");
 const webpack = require("webpack");
+const fs = require("fs");
+const { FXServer, licenceKey } = JSON.parse(fs.readFileSync("../config.json", "utf8"));
 
 const webpacks = [
   "./resources/graphql/webpack.config.js",
@@ -9,7 +11,7 @@ const webpacks = [
 
 const server = spawn(
   "cmd.exe", 
-  ["/c", "C:\\FXServer\\FXServer.exe +exec server.cfg"]
+  ["/c", `${FXServer} +exec server.cfg +set sv_licenseKey ${licenceKey}`]
 )
 
 server.stdout.pipe(process.stdout);
