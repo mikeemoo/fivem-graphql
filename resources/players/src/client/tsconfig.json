@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "module": "commonjs",
+    "target": "es2018",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "types": ["@citizenfx/client", "@types/node"],
+    "moduleResolution": "node"
+  },    
+  "include": ["./**/*"],
+  "exclude": ["**/node_modules", "**/__tests__/*"]
+}

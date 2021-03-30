@@ -1,3 +1,5 @@
+import { sessions } from "./Query";
+
 const ENTITY_TYPES = ["", "PED", "VEHICLE", "PROP"];
 
 const POPULATION_TYPE = [
@@ -41,4 +43,13 @@ export const rotation = ({ entityId }) =>  {
 export const coords = ({ entityId }) =>  {
   const [ x, y, z ] = GetEntityCoords(entityId);
   return { x, y, z };
+}
+
+export const session = ({ entityId }) => {
+  if (!IsPedAPlayer(entityId)) {
+    return;
+  }
+  return sessions().find(
+    (session) => GetPlayerPed(session.sessionId) === entityId
+  )
 }
