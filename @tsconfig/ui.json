@@ -5,10 +5,11 @@
     "target": "es2018",
     "allowJs": true,
     "esModuleInterop": true,
-    "types": ["@citizenfx/client", "@types/node"],
+    "types": ["@citizenfx/client", "@types/radium"],
     "moduleResolution": "node",
     "jsx": "react",
-    "baseUrl": "../"
+    "baseUrl": "../",
+    "rootDir": "../"
   },
   "exclude": ["**/node_modules", "**/__tests__/*"]
 }

@@ -1,5 +1,5 @@
 import { EntityResolvers } from "types/graphql";
-import { getActiveSessions } from "./query";
+import { getActiveSessions } from "../providers/sessions";
 
 const ENTITY_TYPES = ["", "PED", "VEHICLE", "PROP"];
 

@@ -17,6 +17,7 @@
         "@graphql-codegen/typescript-react-apollo": "2.2.3",
         "@graphql-codegen/typescript-resolvers": "1.19.0",
         "@types/node": "^14.14.35",
+        "@types/radium": "^0.24.3",
         "@types/react": "^17.0.3",
         "@types/react-dom": "^17.0.3",
         "@typescript-eslint/eslint-plugin": "^4.9.1",

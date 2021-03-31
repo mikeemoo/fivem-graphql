@@ -38,9 +38,7 @@ const App = () => {
   return <div />;
 };
 
-const styles: {
-  [Key: string]: React.CSSProperties;
-} = {
+const styles: Radium.StyleRules = {
   inventory: {
     position: 'fixed',
     left: '50%',

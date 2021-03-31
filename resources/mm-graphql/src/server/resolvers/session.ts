@@ -1,13 +1,6 @@
 import { SessionResolvers } from "types/graphql";
-
-export const getIdentifiers = (sessionId: string) => {
-  const numIds = GetNumPlayerIdentifiers(sessionId);
-  let identifiers: string[] = [];
-  for (let i = 0; i < numIds; i++) {
-      identifiers.push(GetPlayerIdentifier(sessionId, i));
-  }
-  return identifiers;
-}
+import { getPlayer } from "../providers/players";
+import { getIdentifiers } from "../providers/sessions";
 
 export default {
   ping: ({ sessionId }) =>  GetPlayerPing(sessionId),
@@ -30,12 +23,6 @@ export default {
     return tokens;
   },
   identifiers: ({ sessionId }) => getIdentifiers(sessionId),
-  player: ({ identifiers }) => ({
-    id: 1,
-    identifiers: [
-      "license:d47b936bd803244bc048084384f44224d0420ebc"
-    ],
-    fullName: "Michael Michaelson"
-  })
+  player: ({ identifiers }) => getPlayer(identifiers)
 } as SessionResolvers;
 

@@ -7,7 +7,8 @@
     "esModuleInterop": true,
     "types": ["@citizenfx/client", "@types/node"],
     "moduleResolution": "node",
-    "baseUrl": "../"
+    "baseUrl": "../",
+    "rootDir": "../"
   },
   "exclude": ["**/node_modules", "**/__tests__/*"]
 }

@@ -1,34 +1,7 @@
 import { QueryResolvers } from "types/graphql";
-import { getIdentifiers, identifiers } from "./session";
-
-export const getActiveSessions = () => {
-  const numPlayers = GetNumPlayerIndices();
-  const sessions: string[] = [];
-  for (let i = 0; i < numPlayers; i++) {
-    const sessionId = GetPlayerFromIndex(i);
-    if (sessionId) {
-      sessions.push(sessionId);
-    }
-  }
-  return sessions;
-}
-
-const fetchPlayers = () => [{
-  id: 1,
-  identifiers: [
-    "license:d47b936bd803244bc048084384f44224d0420ebc"
-  ],
-  fullName: "Michael Michaelson"
-}];
-
-const fetchContainer = (id: string) => ({
-  id,
-  size: 40,
-  items: [{
-    id: 1,
-    name: "test"
-  }]
-})
+import { getContainer } from "../providers/containers";
+import { getActiveSessions, getIdentifiers } from "../providers/sessions";
+import { getPlayers } from "../providers/players";
 
 export default {
   peds: () => GetAllPeds().map((entityId) => ({ entityId })),
@@ -44,6 +17,6 @@ export default {
       sessionId,
       identifiers: getIdentifiers(sessionId)
     })),
-  players: () => fetchPlayers(),
-  container: (_, { id }) => fetchContainer(id)
+  players: () => getPlayers(),
+  container: (_, { id }) => getContainer(id)
 } as QueryResolvers;

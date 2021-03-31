@@ -1,16 +1,9 @@
 import { PlayerResolvers } from 'types/graphql';
-import { getActiveSessions } from './query';
-import { getIdentifiers } from './session';
+import { getContainer } from '../providers/containers';
+import { getActiveSessions, getIdentifiers } from '../providers/sessions';
 
 export default {
-  inventory: ({ id }) => ({
-    id: `inventory:${id}`,
-    size: 40,
-    items: [{
-      id: 1,
-      name: "test"
-    }]
-  }),
+  inventory: ({ id }) => getContainer(`inventor:${id}`),
   session: ({ identifiers }: { identifiers: string[] }) => {
     const activeSessions = getActiveSessions();
 

@@ -1,4 +1,4 @@
-export * as Entity from "./entity";
-export * as Player from "./player";
-export * as Query from "./query";
-export * as Session from "./session";
+export { default as Entity } from "./entity";
+export { default as Player } from "./player";
+export { default as Query } from "./query";
+export { default as Session } from "./session";

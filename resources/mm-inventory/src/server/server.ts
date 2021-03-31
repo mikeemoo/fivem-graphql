@@ -1,9 +1,9 @@
 import { Exports } from 'types/exports';
-
+import { InventoryCallbacks } from "../types";
 const graphql = (global.exports as Exports)['mm-graphql'];
 
-const callbacks = {
-  loadInventory: (sessionId: string, resolve: Function) => {
+const callbacks: InventoryCallbacks = {
+  loadInventory: (sessionId, resolve) => {
     graphql.executeQuery(
       `query GetUserInventory($sessionId: String!) {
             session (sessionId: $sessionId) { player { inventory { id size items { id name } } } }
@@ -18,8 +18,8 @@ const callbacks = {
         },
       }) => resolve(inventory),
     );
-  },
-};
+  }
+}
 
 onNet('inventory:callback:request', (id: string, eventName: string, ...params: any[]) => {
   const sessionId = String(source);
