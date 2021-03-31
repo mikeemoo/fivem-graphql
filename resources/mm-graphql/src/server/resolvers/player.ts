@@ -1,8 +1,8 @@
-import { PlayerResolvers, Resolvers } from 'types/graphql';
-import { sessions } from './query';
+import { PlayerResolvers } from 'types/graphql';
+import { getActiveSessions } from './query';
+import { getIdentifiers } from './session';
 
 export default {
-  
   inventory: ({ id }) => ({
     id: `inventory:${id}`,
     size: 40,
@@ -11,11 +11,16 @@ export default {
       name: "test"
     }]
   }),
-
   session: ({ identifiers }: { identifiers: string[] }) => {
-    const activeSessions = sessions();
-    const session = activeSessions.find((session) => 
-      session.identifiers.find((sessId) => identifiers.includes(sessId))
+    const activeSessions = getActiveSessions();
+
+    const session = activeSessions
+      .map(
+        (sessionId) => ({ sessionId, identifiers: getIdentifiers(sessionId) })
+      )
+      .find((session) => 
+        session.identifiers.find((id) => identifiers.includes(id)
+      )
     );
     return session;
   }

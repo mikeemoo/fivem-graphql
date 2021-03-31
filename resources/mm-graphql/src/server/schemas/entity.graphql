@@ -7,10 +7,10 @@ type Entity {
   rotation: Vector3!
   heading: Float!
   coords: Vector3!
-  modelHash: String!
+  modelHash: Int!
   type: String!
   populationType: String!
-  causeOfDeath: String
+  causeOfDeath: Int
   currentVehicle: Entity
   lastVehicle: Entity
   numberPlate: String!

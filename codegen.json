@@ -6,7 +6,10 @@
       "plugins": [
         "typescript",
         "typescript-resolvers"
-      ]
+      ],
+      "config": {
+        "defaultMapper": "Partial<{T}>"
+      }
     },
     "resources/mm-graphql/src/server/graphql.generated.json": {
       "plugins": [

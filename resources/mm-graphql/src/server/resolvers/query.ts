@@ -1,4 +1,5 @@
-import { identifiers } from "./session";
+import { QueryResolvers } from "types/graphql";
+import { getIdentifiers, identifiers } from "./session";
 
 export const getActiveSessions = () => {
   const numPlayers = GetNumPlayerIndices();
@@ -12,32 +13,7 @@ export const getActiveSessions = () => {
   return sessions;
 }
 
-export const peds = () => GetAllPeds().map((entityId) => ({ entityId }));
-export const vehicles = () => GetAllVehicles().map((entityId) => ({ entityId }));
-export const entities = () => GetAllObjects().map((entityId) => ({ entityId }));
-export const entity = (_, { entityId }) => GetAllObjects().includes(entityId) ? ({ entityId }) : null;
-
-export const session = (_, { sessionId }: { sessionId: string }) => ({
-  sessionId,
-  identifiers: identifiers({ sessionId })
-})
-
-export const sessions = () => {
-  const numPlayers = GetNumPlayerIndices();
-  const sessions = [];
-  for (let i = 0; i < numPlayers; i++) {
-    const sessionId = GetPlayerFromIndex(i);
-    if (sessionId) {
-      sessions.push({
-        sessionId,
-        identifiers: identifiers({ sessionId })
-      });
-    }
-  }
-  return sessions;
-};
-
-export const players = () => [{
+const fetchPlayers = () => [{
   id: 1,
   identifiers: [
     "license:d47b936bd803244bc048084384f44224d0420ebc"
@@ -45,7 +21,7 @@ export const players = () => [{
   fullName: "Michael Michaelson"
 }];
 
-export const container = (_, { id }) => ({
+const fetchContainer = (id: string) => ({
   id,
   size: 40,
   items: [{
@@ -53,3 +29,21 @@ export const container = (_, { id }) => ({
     name: "test"
   }]
 })
+
+export default {
+  peds: () => GetAllPeds().map((entityId) => ({ entityId })),
+  vehicles: () => GetAllVehicles().map((entityId) => ({ entityId })),
+  entities: () => GetAllObjects().map((entityId) => ({ entityId })),
+  entity: (_, { entityId }) => GetAllObjects().includes(entityId) ? ({ entityId }) : null,
+  session: (_, { sessionId }: { sessionId: string }) => ({
+    sessionId,
+    identifiers: getIdentifiers(sessionId)
+  }),
+  sessions: () => getActiveSessions()
+    .map((sessionId) => ({
+      sessionId,
+      identifiers: getIdentifiers(sessionId)
+    })),
+  players: () => fetchPlayers(),
+  container: (_, { id }) => fetchContainer(id)
+} as QueryResolvers;

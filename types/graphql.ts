@@ -30,10 +30,10 @@ export type Entity = {
   rotation: Vector3;
   heading: Scalars['Float'];
   coords: Vector3;
-  modelHash: Scalars['String'];
+  modelHash: Scalars['Int'];
   type: Scalars['String'];
   populationType: Scalars['String'];
-  causeOfDeath?: Maybe<Scalars['String']>;
+  causeOfDeath?: Maybe<Scalars['Int']>;
   currentVehicle?: Maybe<Entity>;
   lastVehicle?: Maybe<Entity>;
   numberPlate: Scalars['String'];
@@ -121,7 +121,8 @@ export type NewStitchingResolver<TResult, TParent, TContext, TArgs> = {
 };
 export type StitchingResolver<TResult, TParent, TContext, TArgs> = LegacyStitchingResolver<TResult, TParent, TContext, TArgs> | NewStitchingResolver<TResult, TParent, TContext, TArgs>;
 export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
-    ResolverFn<TResult, TParent, TContext, TArgs>
+  | ResolverFn<TResult, TParent, TContext, TArgs>
+  | StitchingResolver<TResult, TParent, TContext, TArgs>;
 
 export type ResolverFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
@@ -182,32 +183,32 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Container: ResolverTypeWrapper<Container>;
-  String: ResolverTypeWrapper<Scalars['String']>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
-  Entity: ResolverTypeWrapper<Entity>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  Float: ResolverTypeWrapper<Scalars['Float']>;
-  Item: ResolverTypeWrapper<Item>;
-  Player: ResolverTypeWrapper<Player>;
+  Container: ResolverTypeWrapper<Partial<Container>>;
+  String: ResolverTypeWrapper<Partial<Scalars['String']>>;
+  Int: ResolverTypeWrapper<Partial<Scalars['Int']>>;
+  Entity: ResolverTypeWrapper<Partial<Entity>>;
+  Boolean: ResolverTypeWrapper<Partial<Scalars['Boolean']>>;
+  Float: ResolverTypeWrapper<Partial<Scalars['Float']>>;
+  Item: ResolverTypeWrapper<Partial<Item>>;
+  Player: ResolverTypeWrapper<Partial<Player>>;
   Query: ResolverTypeWrapper<{}>;
-  Session: ResolverTypeWrapper<Session>;
-  Vector3: ResolverTypeWrapper<Vector3>;
+  Session: ResolverTypeWrapper<Partial<Session>>;
+  Vector3: ResolverTypeWrapper<Partial<Vector3>>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Container: Container;
-  String: Scalars['String'];
-  Int: Scalars['Int'];
-  Entity: Entity;
-  Boolean: Scalars['Boolean'];
-  Float: Scalars['Float'];
-  Item: Item;
-  Player: Player;
+  Container: Partial<Container>;
+  String: Partial<Scalars['String']>;
+  Int: Partial<Scalars['Int']>;
+  Entity: Partial<Entity>;
+  Boolean: Partial<Scalars['Boolean']>;
+  Float: Partial<Scalars['Float']>;
+  Item: Partial<Item>;
+  Player: Partial<Player>;
   Query: {};
-  Session: Session;
-  Vector3: Vector3;
+  Session: Partial<Session>;
+  Vector3: Partial<Vector3>;
 };
 
 export type ContainerResolvers<ContextType = any, ParentType extends ResolversParentTypes['Container'] = ResolversParentTypes['Container']> = {
@@ -226,10 +227,10 @@ export type EntityResolvers<ContextType = any, ParentType extends ResolversParen
   rotation?: Resolver<ResolversTypes['Vector3'], ParentType, ContextType>;
   heading?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   coords?: Resolver<ResolversTypes['Vector3'], ParentType, ContextType>;
-  modelHash?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  modelHash?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   populationType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  causeOfDeath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  causeOfDeath?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   currentVehicle?: Resolver<Maybe<ResolversTypes['Entity']>, ParentType, ContextType>;
   lastVehicle?: Resolver<Maybe<ResolversTypes['Entity']>, ParentType, ContextType>;
   numberPlate?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

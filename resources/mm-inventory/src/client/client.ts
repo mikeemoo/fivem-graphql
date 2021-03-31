@@ -1,6 +1,5 @@
 import netCallback from './netCallback';
 
-
 RegisterNuiCallbackType('getInventory');
 on('__cfx_nui:getInventory', (_, cb) => netCallback('loadInventory', cb));
 
