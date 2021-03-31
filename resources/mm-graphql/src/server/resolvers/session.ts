@@ -1,5 +1,5 @@
 import { SessionResolvers } from "types/graphql";
-import { getPlayer } from "../providers/players";
+import { getPlayerByIdentifiers } from "../providers/players";
 import { getIdentifiers } from "../providers/sessions";
 
 export default {
@@ -23,6 +23,6 @@ export default {
     return tokens;
   },
   identifiers: ({ sessionId }) => getIdentifiers(sessionId),
-  player: ({ identifiers }) => getPlayer(identifiers)
+  player: ({ identifiers }, _, { db }) => getPlayerByIdentifiers(db, identifiers)
 } as SessionResolvers;
 

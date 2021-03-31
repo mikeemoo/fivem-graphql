@@ -1,4 +1,6 @@
-const callbacks = {};
+import { InventoryCallbacks } from '../types';
+
+const callbacks: { [key: string]: Function } = {};
 let counter = 0;
 
 onNet('inventory:callback:response', (id: string, ...params: any[]) => {
@@ -8,7 +10,11 @@ onNet('inventory:callback:response', (id: string, ...params: any[]) => {
   }
 });
 
-export default (eventName: string, cb: (data: any) => void, ...params: any[]) => {
+export default <K extends Function>(
+  eventName: keyof InventoryCallbacks,
+  cb: K,
+  ...params: any[]
+) => {
   const id = String(counter++);
   callbacks[id] = cb;
   emitNet('inventory:callback:request', id, eventName, ...params);

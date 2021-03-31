@@ -8,7 +8,8 @@
         "typescript-resolvers"
       ],
       "config": {
-        "defaultMapper": "Partial<{T}>"
+        "defaultMapper": "Partial<{T}>",
+        "contextType": "./graphql-context#Context"
       }
     },
     "resources/mm-graphql/src/server/graphql.generated.json": {

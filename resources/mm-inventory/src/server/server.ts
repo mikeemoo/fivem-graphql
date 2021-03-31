@@ -1,5 +1,5 @@
 import { Exports } from 'types/exports';
-import { InventoryCallbacks } from "../types";
+import { InventoryCallbacks } from '../types';
 const graphql = (global.exports as Exports)['mm-graphql'];
 
 const callbacks: InventoryCallbacks = {
@@ -10,16 +10,10 @@ const callbacks: InventoryCallbacks = {
           }
         `,
       { sessionId },
-      ({
-        data: {
-          session: {
-            player: { inventory },
-          },
-        },
-      }) => resolve(inventory),
+      ({ data }) => resolve(data?.session?.player?.inventory),
     );
-  }
-}
+  },
+};
 
 onNet('inventory:callback:request', (id: string, eventName: string, ...params: any[]) => {
   const sessionId = String(source);

@@ -17,6 +17,6 @@ export default {
       sessionId,
       identifiers: getIdentifiers(sessionId)
     })),
-  players: () => getPlayers(),
+  players: (_, __, { db }) => getPlayers(db),
   container: (_, { id }) => getContainer(id)
 } as QueryResolvers;
