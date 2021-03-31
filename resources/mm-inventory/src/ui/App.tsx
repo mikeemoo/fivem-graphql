@@ -2,13 +2,14 @@ import React, { useState, useEffect, useCallback } from 'react';
 import callClient from './callClient';
 import Radium from 'radium';
 import { motion } from 'framer-motion';
+import { Container } from 'types/graphql';
 
 const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
 
   const fetchInventory = useCallback(async () => {
-    const inventory = await callClient('getInventory');
+    const inventory = await callClient<Container>('getInventory');
     setItems(inventory.items);
     setIsLoaded(true);
   }, []);
