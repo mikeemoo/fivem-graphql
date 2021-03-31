@@ -25,7 +25,7 @@ server.stderr.pipe(process.stderr);
 // check for graphql schema changes, rebuild types and restart all modules
 chokidar.watch('./resources/**/*.graphql').on('change', (event, path) => {
   generate(codegenConfig, true).then(() => {
-    server.stdin.write(`restart graphql\n`);
+    server.stdin.write(`restart mm-graphql\n`);
   })
 });
 
