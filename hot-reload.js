@@ -1,12 +1,16 @@
 const { spawn } = require("child_process");
 const webpack = require("webpack");
+const chokidar = require("chokidar");
+const { generate } = require("@graphql-codegen/cli");
 const fs = require("fs");
-const { FXServer, licenceKey } = JSON.parse(fs.readFileSync("../config.json", "utf8"));
+
+const codegenConfig = JSON.parse(fs.readFileSync(`${__dirname}/codegen.json`, "utf8"));
+const { FXServer, licenceKey } = JSON.parse(fs.readFileSync(`${__dirname}/../config.json`, "utf8"));
 
 const webpacks = [
-  "./resources/graphql/webpack.config.js",
-  "./resources/inventory/webpack.config.js",
-  "./resources/players/webpack.config.js",
+  "./resources/mm-graphql/webpack.config.js",
+  "./resources/mm-inventory/webpack.config.js",
+  "./resources/mm-players/webpack.config.js",
 ]
 
 const server = spawn(
@@ -18,13 +22,19 @@ server.stdout.pipe(process.stdout);
 server.stdin.pipe(process.stdin);
 server.stderr.pipe(process.stderr);
 
+// check for graphql schema changes, rebuild types and restart all modules
+chokidar.watch('./resources/**/*.graphql').on('change', (event, path) => {
+  generate(codegenConfig, true).then(() => {
+    server.stdin.write(`restart graphql\n`);
+  })
+});
+
 const compiler = webpack(webpacks.map((path) => require(path)).flat());
 
-const watching = compiler.watch({}, (err, stats) => {
+compiler.watch({}, (err, stats) => {
   if (err) {
     console.log("ERRASHS!");
   } else {
-    
     stats.toJson().children.forEach(({ outputPath, errors }) => {
       if (errors.length > 0) {
         errors.forEach((err) => { 

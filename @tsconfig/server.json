@@ -6,8 +6,9 @@
     "allowJs": true,
     "esModuleInterop": true,
     "types": ["@citizenfx/server", "@types/node"],
-    "moduleResolution": "node"
-  },    
-  "include": ["./**/*"],
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "baseUrl": "../"
+  },
   "exclude": ["**/node_modules", "**/__tests__/*"]
 }

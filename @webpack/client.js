@@ -1,32 +1,27 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
-module.exports = {
+module.exports = (resourceDirname) => ({
   mode: 'production',
-  context: __dirname,
-  entry: `./src/server/server.ts`,
+  context: resourceDirname,
+  entry: `./src/client/client.ts`,
   output: {
     path: path.resolve(
-      __dirname,
+      resourceDirname,
       'build'
-     ),
-    filename: `server.js`
+    ),
+    filename: `client.js`
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js']
   },
-  target: "node",
+  target: "web",
   module: {
     rules: [
       { test: /\.tsx?$/, loader: 'ts-loader', exclude: /node_modules/ }
     ],
   },
   externals: [
-    nodeExternals({
-      modulesDir: path.resolve(__dirname, "node_modules"),
-      additionalModuleDirs: [
-        path.resolve(__dirname, "..", "..", "node_modules")
-      ]
-    })
+    nodeExternals()
   ]
-};
+})
