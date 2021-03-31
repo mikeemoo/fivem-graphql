@@ -1,0 +1,10 @@
+type Query {
+  container(id: String!): Container
+  sessions: [Session!]!
+  session(sessionId: String!): Session
+  peds: [Entity!]!
+  vehicles: [Entity!]!
+  entities: [Entity!]!
+  entity(entityId: Int!): Entity
+  players: [Player!]!
+}

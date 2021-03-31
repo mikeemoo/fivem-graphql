@@ -121,8 +121,7 @@ export type NewStitchingResolver<TResult, TParent, TContext, TArgs> = {
 };
 export type StitchingResolver<TResult, TParent, TContext, TArgs> = LegacyStitchingResolver<TResult, TParent, TContext, TArgs> | NewStitchingResolver<TResult, TParent, TContext, TArgs>;
 export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
-  | ResolverFn<TResult, TParent, TContext, TArgs>
-  | StitchingResolver<TResult, TParent, TContext, TArgs>;
+    ResolverFn<TResult, TParent, TContext, TArgs>
 
 export type ResolverFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,

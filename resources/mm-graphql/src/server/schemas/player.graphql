@@ -1,0 +1,7 @@
+type Player {
+  id: Int!
+  identifiers: [String!]!
+  fullName: String!
+  session: Session
+  inventory: Container!
+}

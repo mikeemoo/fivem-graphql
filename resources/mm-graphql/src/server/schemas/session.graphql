@@ -1,0 +1,14 @@
+type Session {
+  sessionId: String!
+  name: String!
+  ping: Int!
+  invincible: Boolean!
+  identifiers: [String]!
+  maxArmour: Float!
+  maxHealth: Float!
+  endpoint: String!
+  ped: Entity!
+  tokens: [String!]!
+  cameraRotation: Vector3!
+  player: Player!
+}

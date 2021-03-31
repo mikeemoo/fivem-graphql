@@ -1,0 +1,18 @@
+type Entity {
+  entityId: Int!
+  isPlayer: Boolean!
+  armour: Float!
+  maxHealth: Float!
+  health: Float!
+  rotation: Vector3!
+  heading: Float!
+  coords: Vector3!
+  modelHash: String!
+  type: String!
+  populationType: String!
+  causeOfDeath: String
+  currentVehicle: Entity
+  lastVehicle: Entity
+  numberPlate: String!
+  session: Session
+}

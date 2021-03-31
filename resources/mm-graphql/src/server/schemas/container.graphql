@@ -1,0 +1,5 @@
+type Container {
+  id: String!
+  size: Int!
+  items: [Item!]!
+}
